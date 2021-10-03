@@ -1,5 +1,5 @@
-import 'package:face_detection_app/business_logic/Blocs/camera_bloc/events/picture_event.dart';
-import 'package:face_detection_app/business_logic/Blocs/camera_bloc/states/picture_state.dart';
+import 'package:face_detection_app/business_logic/Blocs/back_button_bloc/events/picture_event.dart';
+import 'package:face_detection_app/business_logic/Blocs/back_button_bloc/states/picture_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BackButtonBloc extends Bloc<PictureEvent, PictureState> {
@@ -7,9 +7,6 @@ class BackButtonBloc extends Bloc<PictureEvent, PictureState> {
 
   @override
   Stream<PictureState> mapEventToState(PictureEvent event) async* {
-    if (event is BackButtonRequested || event is InitializeRequested) {
-      yield PictureInitialize();
-    }
     if (event is PictureRequested) {
       yield CameraPushing();
     }

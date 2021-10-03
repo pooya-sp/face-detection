@@ -1,6 +1,10 @@
 import 'dart:io';
+import 'package:face_detection_app/business_logic/Blocs/back_button_bloc/back_button_bloc.dart';
+import 'package:face_detection_app/business_logic/Blocs/back_button_bloc/events/picture_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
+
 class DisplayVideoScreen extends StatefulWidget {
   static const routName = '/display-video';
   @override
@@ -10,12 +14,16 @@ class DisplayVideoScreen extends StatefulWidget {
 class _DisplayVideoScreenState extends State<DisplayVideoScreen> {
   late VideoPlayerController _controller;
   late Future<void> _initializeController;
+  var _isInit = false;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    var videoPath = ModalRoute.of(context)!.settings.arguments as String;
-    _controller = VideoPlayerController.file(File(videoPath));
-    _initializeController = _controller.initialize();
+    if (!_isInit) {
+      var videoPath = ModalRoute.of(context)!.settings.arguments as String;
+      _controller = VideoPlayerController.file(File(videoPath));
+      _initializeController = _controller.initialize();
+      _isInit = true;
+    }
   }
 
   @override
@@ -34,8 +42,11 @@ class _DisplayVideoScreenState extends State<DisplayVideoScreen> {
           } else {
             _controller.setLooping(true);
             return Scaffold(
-                appBar: AppBar(title: const Text('Display the Video')),
-                body: Center(
+                extendBodyBehindAppBar: true,
+                appBar: AppBar(backgroundColor: Colors.transparent),
+                body: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
                   child: _controller.value.isInitialized
                       ? AspectRatio(
                           aspectRatio: _controller.value.aspectRatio,
