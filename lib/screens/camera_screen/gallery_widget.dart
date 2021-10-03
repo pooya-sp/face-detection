@@ -1,7 +1,7 @@
 import 'package:face_detection_app/business_logic/Blocs/gallery_bloc/events/gallery_events.dart';
 import 'package:face_detection_app/business_logic/Blocs/gallery_bloc/gallery_bloc.dart';
 import 'package:face_detection_app/business_logic/Blocs/gallery_bloc/states/gallery_states.dart';
-import 'package:face_detection_app/screens/display_gallery_images.dart';
+import 'package:face_detection_app/screens/display_gallery_media.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photo_gallery/photo_gallery.dart';
@@ -132,7 +132,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                           fixedSize: Size.fromHeight(8.h)),
                       onPressed: () {
                         Navigator.of(context).pushReplacementNamed(
-                            DisplayGalleryImages.routeName,
+                            DisplayGalleryMedia.routeName,
                             arguments: selectedPhotos);
                       },
                       child: Icon(Icons.arrow_right_alt)),

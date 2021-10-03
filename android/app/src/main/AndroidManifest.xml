@@ -6,6 +6,7 @@
        <application
         android:label="face_detection_app"
         android:requestLegacyExternalStorage="true"
+        android:largeHeap="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

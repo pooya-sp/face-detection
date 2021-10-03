@@ -39,72 +39,80 @@ class GalleryFolders extends StatelessWidget {
               mainAxisSpacing: 5,
             ),
             itemBuilder: (ctx, index) {
-              final mediumId = state.media.values.toList()[index].first.id;
-              return Padding(
-                padding: EdgeInsets.all(12),
-                child: GestureDetector(
-                  onTap: () {
-                    _showGalleryPictures(ctx, state.media.keys.toList()[index],
-                        state.media.values.toList()[index]);
-                  },
-                  child: Column(
-                    children: [
-                      // if (state.media.length == 0)
-                      //   Expanded(
-                      //     child: Image(
-                      //         fit: BoxFit.cover,
-                      //         image: AlbumThumbnailProvider(
-                      //           albumId: state.albums[index].id,
-                      //           mediumType: state.albums[index].mediumType,
-                      //           highQuality: true,
-                      //         )),
-                      //   ),
-                      Expanded(
-                        child: Image(
-                          fit: BoxFit.cover,
-                          image: ThumbnailProvider(
-                            mediumId: mediumId,
-                            highQuality: true,
+              try {
+                final mediumId = state.media.values.toList()[index].first.id;
+                return Padding(
+                  padding: EdgeInsets.all(12),
+                  child: GestureDetector(
+                    onTap: () {
+                      _showGalleryPictures(
+                          ctx,
+                          state.media.keys.toList()[index],
+                          state.media.values.toList()[index]);
+                    },
+                    child: Column(
+                      children: [
+                        // if (state.media.length == 0)
+                        //   Expanded(
+                        //     child: Image(
+                        //         fit: BoxFit.cover,
+                        //         image: AlbumThumbnailProvider(
+                        //           albumId: state.albums[index].id,
+                        //           mediumType: state.albums[index].mediumType,
+                        //           highQuality: true,
+                        //         )),
+                        //   ),
+                        Expanded(
+                          child: Image(
+                            fit: BoxFit.cover,
+                            image: ThumbnailProvider(
+                              mediumId: mediumId,
+                              highQuality: true,
+                            ),
                           ),
                         ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            width: 60,
-                            alignment: Alignment.bottomLeft,
-                            child: Text(
-                              '${state.media.keys.toList()[index]}',
-                              maxLines: 1,
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                overflow: TextOverflow.ellipsis,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              width: 60,
+                              alignment: Alignment.bottomLeft,
+                              child: Text(
+                                '${state.media.keys.toList()[index]}',
+                                maxLines: 1,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ),
-                          ),
-                          Container(
-                            width: 30,
-                            alignment: Alignment.bottomRight,
-                            child: Text(
-                              '(${state.media.values.toList()[index].length})',
-                              maxLines: 1,
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                overflow: TextOverflow.ellipsis,
+                            Container(
+                              width: 30,
+                              alignment: Alignment.bottomRight,
+                              child: Text(
+                                '(${state.media.values.toList()[index].length})',
+                                maxLines: 1,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              );
+                );
+              } catch (error) {
+                return Center(
+                  child: Text("Something went wrong. please try again later."),
+                );
+              }
             });
       } else {
         return Center(

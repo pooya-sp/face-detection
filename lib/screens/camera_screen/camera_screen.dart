@@ -8,6 +8,7 @@ import 'package:face_detection_app/business_logic/Blocs/camera_bloc/states/camer
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/events/timer_events.dart';
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/timer_bloc.dart';
 import 'package:face_detection_app/data/FileSaver.dart';
+import 'package:face_detection_app/screens/camera_screen/camera_icon_buttons.dart';
 import 'package:face_detection_app/screens/camera_screen/fab_widget.dart';
 import 'package:face_detection_app/screens/camera_screen/navigation_bar_camera_screen.dart';
 import 'package:face_detection_app/screens/camera_screen/timer_widget.dart';
@@ -23,15 +24,14 @@ class CameraScreen extends StatefulWidget {
 }
 
 class _CameraScreenState extends State<CameraScreen> {
-  var _isFrontCamera = false;
-  var _isFlashOn = false;
-
   @override
   void initState() {
     super.initState();
     Permission.storage.request();
     context.read<BackButtonBloc>().add(PictureRequested());
   }
+
+  var _isFrontCamera = false;
 
   @override
   Widget build(BuildContext context) {
@@ -71,13 +71,13 @@ class _CameraScreenState extends State<CameraScreen> {
                             onPressed: () {
                               if (_isFrontCamera) {
                                 _isFrontCamera = false;
-                                context
-                                    .read<CameraBloc>()
+                                BlocProvider.of<CameraBloc>(context,
+                                        listen: false)
                                     .add(CameraRequested(0));
                               } else {
                                 _isFrontCamera = true;
-                                context
-                                    .read<CameraBloc>()
+                                BlocProvider.of<CameraBloc>(context,
+                                        listen: false)
                                     .add(CameraRequested(1));
                               }
                             },
@@ -100,63 +100,7 @@ class _CameraScreenState extends State<CameraScreen> {
                             right: 10,
                           ),
                         if (!(st is IsRecording))
-                          Container(
-                            margin: EdgeInsets.only(top: 72),
-                            width: MediaQuery.of(context).size.width,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(right: 8),
-                                  child: Text(
-                                    'Switch Camera',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 8),
-                                  ),
-                                ),
-                                IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.timer_off,
-                                      color: Colors.white,
-                                    )),
-                                Container(
-                                  width: 36,
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    'Timer',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 8),
-                                  ),
-                                ),
-                                IconButton(
-                                    onPressed: () {
-                                      if (_isFlashOn) {
-                                        state.controller
-                                            .setFlashMode(FlashMode.off);
-                                        _isFlashOn = false;
-                                      } else {
-                                        state.controller
-                                            .setFlashMode(FlashMode.always);
-                                        _isFlashOn = true;
-                                      }
-                                    },
-                                    icon: Icon(
-                                      Icons.flash_off_outlined,
-                                      color: Colors.white,
-                                    )),
-                                Container(
-                                  width: 36,
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    'Flash',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 8),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          CameraIconButtons(state.controller),
                       ],
                     ),
                     floatingActionButton: FabWidget(state.controller),

@@ -9,9 +9,9 @@ class CameraBloc extends Bloc<CameraEvents, CameraStates> {
 
   @override
   Stream<CameraStates> mapEventToState(CameraEvents event) async* {
-    yield CameraIsLoading();
     try {
       if (event is CameraRequested) {
+        yield CameraIsLoading();
         List<CameraDescription> cameras = await availableCameras();
         _controller =
             CameraController(cameras[event.camera], ResolutionPreset.max);
