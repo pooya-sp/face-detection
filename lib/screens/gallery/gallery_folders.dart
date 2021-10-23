@@ -108,8 +108,12 @@ class GalleryFolders extends StatelessWidget {
                   ),
                 );
               } catch (error) {
-                return Center(
-                  child: Text("Something went wrong. please try again later."),
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Icon(Icons.error),
+                    Text("No images found."),
+                  ],
                 );
               }
             });

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photo_gallery/photo_gallery.dart';
 import 'package:sizer/sizer.dart';
+import 'package:badges/badges.dart';
 
 class GalleryWidget extends StatefulWidget {
   final List<Medium> album;
@@ -141,8 +142,12 @@ class _GalleryWidgetState extends State<GalleryWidget> {
             Positioned(
                 bottom: 4,
                 right: 4,
-                child: Container(
-                  alignment: Alignment.bottomRight,
+                child: Badge(
+                  badgeContent: Text('${selectedPhotos.length}'),
+                  badgeColor: Colors.blue,
+                  elevation: 0,
+                  // position: BadgePosition(),
+                  padding: EdgeInsets.all(10),
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           shape: CircleBorder(),
@@ -163,20 +168,20 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                       },
                       child: Icon(Icons.arrow_right_alt)),
                 )),
-            Positioned(
-                bottom: 3,
-                right: 9,
-                child: Container(
-                    width: 5.w,
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        border: Border.all(color: Colors.white),
-                        shape: BoxShape.circle),
-                    child: Text(
-                      '${selectedPhotos.length}',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
-                    )))
+            // Positioned(
+            //     bottom: 3,
+            //     right: 9,
+            //     child: Container(
+            //         width: 5.w,
+            //         decoration: BoxDecoration(
+            //             color: Colors.blue,
+            //             border: Border.all(color: Colors.white),
+            //             shape: BoxShape.circle),
+            //         child: Text(
+            //           '${selectedPhotos.length}',
+            //           textAlign: TextAlign.center,
+            //           style: TextStyle(color: Colors.white),
+            //         )))
           ]);
         } else {
           return Center(
