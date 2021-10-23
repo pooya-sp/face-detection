@@ -9,8 +9,8 @@ class GalleryVideoInitialized extends GalleryVideoState {}
 class GalleryVideoIsLoading extends GalleryVideoState {}
 
 class GalleryVideoLoadingComplete extends GalleryVideoState {
-  final VideoPlayerController controller;
-  GalleryVideoLoadingComplete(this.controller);
+  final VideoPlayerController videoPlayerController;
+  GalleryVideoLoadingComplete(this.videoPlayerController);
 }
 
 class GalleryVideoLoadingFailed extends GalleryVideoState {}

@@ -8,9 +8,9 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   final Ticker _ticker;
   static const int _duration = 0;
 
-  StreamSubscription<int>? _tickerSubscription;
+  StreamSubscription<int> _tickerSubscription;
 
-  TimerBloc({required Ticker ticker})
+  TimerBloc({Ticker ticker})
       : _ticker = ticker,
         super(TimerInitial(_duration));
 
@@ -38,7 +38,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   Stream<TimerState> _mapTimerStartedToState(TimerStarted start) async* {
     _tickerSubscription?.cancel();
     _tickerSubscription =
-        _ticker.tick(ticks: start.duration).listen((duration) {
+        _ticker.countUp(ticks: start.duration).listen((duration) {
       add(TimerTicked(duration: duration));
     });
     yield TimerRunInProgress(start.duration);

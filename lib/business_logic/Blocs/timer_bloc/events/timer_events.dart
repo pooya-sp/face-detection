@@ -8,7 +8,7 @@ abstract class TimerEvent extends Equatable {
 }
 
 class TimerStarted extends TimerEvent {
-  const TimerStarted({required this.duration});
+  const TimerStarted({this.duration});
   final int duration;
 }
 
@@ -25,7 +25,7 @@ class TimerReset extends TimerEvent {
 }
 
 class TimerTicked extends TimerEvent {
-  const TimerTicked({required this.duration});
+  const TimerTicked({this.duration});
   final int duration;
 
   @override

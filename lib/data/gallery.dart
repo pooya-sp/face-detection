@@ -19,8 +19,8 @@ class Gallery {
     return allMedia;
   }
 
-  Future<Map<String, List<Medium>>> getMedia(MediumType? mediumType) async {
-    final images = await PhotoGallery.listAlbums(mediumType: mediumType!);
+  Future<Map<String, List<Medium>>> getMedia(MediumType mediumType) async {
+    final images = await PhotoGallery.listAlbums(mediumType: mediumType);
     Map<String, List<Medium>> allMedia = {};
     for (Album image in images) {
       final imagePage = await image.listMedia();

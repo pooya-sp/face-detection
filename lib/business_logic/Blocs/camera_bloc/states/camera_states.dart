@@ -10,7 +10,9 @@ class CameraIsLoading extends CameraStates {}
 
 class CameraLoadingSuccess extends CameraStates {
   final CameraController controller;
-  CameraLoadingSuccess(this.controller);
+  final double minZoomLevel;
+  final double maxZoomLevel;
+  CameraLoadingSuccess(this.controller, this.minZoomLevel, this.maxZoomLevel);
 }
 
 class CameraLoadingFailed extends CameraStates {}

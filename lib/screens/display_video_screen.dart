@@ -12,14 +12,15 @@ class DisplayVideoScreen extends StatefulWidget {
 }
 
 class _DisplayVideoScreenState extends State<DisplayVideoScreen> {
-  late VideoPlayerController _controller;
-  late Future<void> _initializeController;
+  VideoPlayerController _controller;
+  Future<void> _initializeController;
   var _isInit = false;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_isInit) {
-      var videoPath = ModalRoute.of(context)!.settings.arguments as String;
+      context.read<BackButtonBloc>().add(VideoRequested());
+      var videoPath = ModalRoute.of(context).settings.arguments as String;
       _controller = VideoPlayerController.file(File(videoPath));
       _initializeController = _controller.initialize();
       _isInit = true;

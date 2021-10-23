@@ -16,11 +16,12 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   @override
   void initState() {
     super.initState();
+    context.read<BackButtonBloc>().add(PictureRequested());
   }
 
   @override
   Widget build(BuildContext context) {
-    var filePath = ModalRoute.of(context)!.settings.arguments as String;
+    var filePath = ModalRoute.of(context).settings.arguments as String;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(backgroundColor: Colors.transparent),

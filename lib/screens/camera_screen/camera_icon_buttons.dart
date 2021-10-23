@@ -1,6 +1,6 @@
 import 'package:camera/camera.dart';
-import 'package:face_detection_app/business_logic/Blocs/camera_bloc/camera_bloc.dart';
-import 'package:face_detection_app/business_logic/Blocs/camera_bloc/events/camera_events.dart';
+import 'package:face_detection_app/business_logic/Blocs/timer_bloc/countdown_timer_bloc.dart';
+import 'package:face_detection_app/business_logic/Blocs/timer_bloc/events/countdown_timer_events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,10 +19,12 @@ class CameraIconButtons extends StatefulWidget {
 
 class _CameraIconButtonsState extends State<CameraIconButtons> {
   FlashState _flashState = FlashState.OFF;
+  int timerMode = 0;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 72),
+      margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top - 5),
       width: MediaQuery.of(context).size.width,
       child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
         Container(
@@ -33,9 +35,33 @@ class _CameraIconButtonsState extends State<CameraIconButtons> {
           ),
         ),
         IconButton(
-            onPressed: () {},
+            onPressed: () {
+              if (timerMode == 0) {
+                setState(() {
+                  timerMode = 3;
+                  BlocProvider.of<CountDownTimerBloc>(context)
+                      .add(SpecifyTimerDuration(3));
+                });
+              } else if (timerMode == 3) {
+                setState(() {
+                  timerMode = 10;
+                  BlocProvider.of<CountDownTimerBloc>(context)
+                      .add(SpecifyTimerDuration(10));
+                });
+              } else if (timerMode == 10) {
+                setState(() {
+                  timerMode = 0;
+                  BlocProvider.of<CountDownTimerBloc>(context)
+                      .add(SpecifyTimerDuration(0));
+                });
+              }
+            },
             icon: Icon(
-              Icons.timer_off,
+              timerMode == 0
+                  ? Icons.timer_off
+                  : timerMode == 3
+                      ? Icons.timer_3
+                      : Icons.timer_10,
               color: Colors.white,
             )),
         Container(

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CameraBloc extends Bloc<CameraEvents, CameraStates> {
   CameraBloc() : super(CameraInitialize());
-  late CameraController _controller;
+  CameraController _controller;
 
   @override
   Stream<CameraStates> mapEventToState(CameraEvents event) async* {
@@ -16,8 +16,9 @@ class CameraBloc extends Bloc<CameraEvents, CameraStates> {
         _controller =
             CameraController(cameras[event.camera], ResolutionPreset.max);
         await _controller.initialize();
-        print(event.camera);
-        yield CameraLoadingSuccess(_controller);
+        final minZoomLevel = await _controller.getMinZoomLevel();
+        final maxZoomLevel = await _controller.getMaxZoomLevel();
+        yield CameraLoadingSuccess(_controller, minZoomLevel, maxZoomLevel);
       }
     } catch (error) {
       yield CameraLoadingFailed();

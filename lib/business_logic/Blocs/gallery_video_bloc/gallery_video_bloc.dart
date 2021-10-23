@@ -4,32 +4,35 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
 
 class GalleryVideoBloc extends Bloc<GalleryVideoEvent, GalleryVideoState> {
-  late VideoPlayerController controller;
+  VideoPlayerController videoPlayerController;
   GalleryVideoBloc() : super(GalleryVideoInitialized());
-
   @override
   Stream<GalleryVideoState> mapEventToState(GalleryVideoEvent event) async* {
     if (event is GalleryVideoInitialize) {
       try {
+        yield GalleryVideoIsLoading();
         final mediumFile = await event.medium.getFile();
-        controller = VideoPlayerController.file(mediumFile);
-        await controller.initialize();
-        yield GalleryVideoLoadingComplete(controller);
+        videoPlayerController = VideoPlayerController.file(mediumFile);
+        await videoPlayerController.initialize();
+        yield GalleryVideoLoadingComplete(videoPlayerController);
       } catch (error) {
         print(error);
         yield GalleryVideoLoadingFailed();
       }
     }
     if (event is MakePLayIconHidden) {
-      yield GalleryVideoLoadingComplete(controller);
+      yield GalleryVideoLoadingComplete(videoPlayerController);
     }
     if (event is PauseRequested) {
-      await controller.pause();
-      yield GalleryVideoLoadingComplete(controller);
+      await videoPlayerController.pause();
+      yield GalleryVideoLoadingComplete(videoPlayerController);
     }
     if (event is PlayRequested) {
-      await controller.play();
-      yield GalleryVideoLoadingComplete(controller);
+      await videoPlayerController.play();
+      yield GalleryVideoLoadingComplete(videoPlayerController);
+    }
+    if (event is ChangeVolumeRequested) {
+      yield GalleryVideoLoadingComplete(videoPlayerController);
     }
   }
 }

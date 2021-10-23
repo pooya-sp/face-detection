@@ -4,10 +4,11 @@ import 'package:face_detection_app/business_logic/Blocs/camera_bloc/states/camer
 import 'package:face_detection_app/business_logic/Blocs/gallery_folder_bloc/events/gallery_folder_events.dart';
 import 'package:face_detection_app/business_logic/Blocs/gallery_folder_bloc/gallery_folder_bloc.dart';
 import 'package:face_detection_app/screens/camera_screen/camera_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_gallery/photo_gallery.dart';
-import 'package:photo_manager/photo_manager.dart';
 
 class Homescreen extends StatefulWidget {
   @override
@@ -54,7 +55,39 @@ class _HomescreenState extends State<Homescreen> {
                   },
                 );
               } else {
-                return Text('Something went wrong. Please try again later');
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Something went wrong. Please try again',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 12),
+                      child: IconButton(
+                          onPressed: () async {
+                            final isCameraDenied =
+                                await Permission.camera.isDenied;
+                            final isRecordDenied =
+                                await Permission.speech.isDenied;
+                            print(isCameraDenied);
+                            print(isRecordDenied);
+                            if (isCameraDenied || isRecordDenied) {
+                              openAppSettings();
+                            } else {
+                              context
+                                  .read<CameraBloc>()
+                                  .add(CameraRequested(0));
+                            }
+                          },
+                          icon: Icon(
+                            Icons.rotate_left,
+                            size: 60,
+                          )),
+                    ),
+                  ],
+                );
               }
             }
           },

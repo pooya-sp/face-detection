@@ -10,6 +10,9 @@ class BackButtonBloc extends Bloc<PictureEvent, PictureState> {
     if (event is PictureRequested) {
       yield CameraPushing();
     }
+    if (event is TimerIsOn) {
+      yield TimerIsRunning(event.cameraState);
+    }
     if (event is VideoRequested) {
       yield VideoPushing();
     }
