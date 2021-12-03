@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:camera/camera.dart';
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/events/countdown_timer_events.dart';
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/events/timer_events.dart';
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/states/countdown_timer_states.dart';

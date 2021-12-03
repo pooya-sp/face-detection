@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:face_detection_app/business_logic/Blocs/back_button_bloc/back_button_bloc.dart';
-import 'package:face_detection_app/business_logic/Blocs/back_button_bloc/events/picture_event.dart';
+import 'package:face_detection_app/business_logic/Blocs/camera_state_bloc/camera_state_bloc.dart';
+import 'package:face_detection_app/business_logic/Blocs/camera_state_bloc/events/picture_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
@@ -19,7 +19,7 @@ class _DisplayVideoScreenState extends State<DisplayVideoScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_isInit) {
-      context.read<BackButtonBloc>().add(VideoRequested());
+      context.read<CameraStateBloc>().add(VideoRequested());
       var videoPath = ModalRoute.of(context).settings.arguments as String;
       _controller = VideoPlayerController.file(File(videoPath));
       _initializeController = _controller.initialize();

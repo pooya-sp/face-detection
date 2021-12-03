@@ -1,4 +1,4 @@
-import 'package:face_detection_app/business_logic/Blocs/gallery_bloc/states/gallery_states.dart';
+import 'package:face_detection_app/business_logic/Blocs/gallery_items_bloc/states/gallery_states.dart';
 import 'package:face_detection_app/business_logic/Blocs/gallery_video_bloc/events/gallery_video_events.dart';
 import 'package:face_detection_app/business_logic/Blocs/gallery_video_bloc/gallery_video_bloc.dart';
 import 'package:face_detection_app/business_logic/Blocs/gallery_video_bloc/states/gallery_video_states.dart';

@@ -1,25 +1,11 @@
-import 'dart:typed_data';
 import 'package:face_detection_app/business_logic/Blocs/gallery_folder_bloc/gallery_folder_bloc.dart';
 import 'package:face_detection_app/business_logic/Blocs/gallery_folder_bloc/states/gallery_folder_states.dart';
-import 'package:face_detection_app/screens/gallery/gallery_widget.dart';
+import 'package:face_detection_app/data/bottom_sheets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photo_gallery/photo_gallery.dart';
 
 class GalleryFolders extends StatelessWidget {
-  void _showGalleryPictures(
-    BuildContext ctx,
-    String albumName,
-    List<Medium> album,
-  ) {
-    showModalBottomSheet(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
-        backgroundColor: Colors.white,
-        context: ctx,
-        builder: (ctx) => Scaffold(body: GalleryWidget(albumName, album)));
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GalleryFolderBloc, GalleryFolderState>(
@@ -44,9 +30,7 @@ class GalleryFolders extends StatelessWidget {
                   padding: EdgeInsets.all(12),
                   child: GestureDetector(
                     onTap: () {
-                      _showGalleryPictures(
-                          ctx,
-                          state.media.keys.toList()[index],
+                      showGalleryPictures(ctx, state.media.keys.toList()[index],
                           state.media.values.toList()[index]);
                     },
                     child: Column(

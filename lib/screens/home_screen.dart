@@ -19,79 +19,67 @@ class _HomescreenState extends State<Homescreen> {
   @override
   void initState() {
     super.initState();
-    context.read<CameraBloc>().add(CameraRequested(0));
-    context
-        .read<GalleryFolderBloc>()
-        .add(GalleryFolderInitializeRequested(MediumType.image));
+    // context.read<CameraBloc>().add(CameraRequested(0));
+    // context
+    //     .read<GalleryFolderBloc>()
+    //     .add(GalleryFolderInitializeRequested(MediumType.image));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: BlocBuilder<CameraBloc, CameraStates>(
-          builder: (context, state) {
-            if (state is CameraIsLoading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else {
-              if (state is CameraLoadingSuccess) {
-                return ElevatedButton(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Icon(Icons.camera_alt),
-                        Text('Take a picture'),
-                      ],
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(
-                      CameraScreen.routName,
-                    );
-                  },
-                );
-              } else {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Something went wrong. Please try again',
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 12),
-                      child: IconButton(
-                          onPressed: () async {
-                            final isCameraDenied =
-                                await Permission.camera.isDenied;
-                            final isRecordDenied =
-                                await Permission.speech.isDenied;
-                            print(isCameraDenied);
-                            print(isRecordDenied);
-                            if (isCameraDenied || isRecordDenied) {
-                              openAppSettings();
-                            } else {
-                              context
-                                  .read<CameraBloc>()
-                                  .add(CameraRequested(0));
-                            }
-                          },
-                          icon: Icon(
-                            Icons.rotate_left,
-                            size: 60,
-                          )),
-                    ),
-                  ],
-                );
-              }
-            }
+        child: ElevatedButton(
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.4,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Icon(Icons.camera_alt),
+                Text('Take a picture'),
+              ],
+            ),
+          ),
+          onPressed: () {
+            Navigator.of(context).pushNamed(
+              CameraScreen.routName,
+            );
           },
         ),
+
+        // return Column(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     Text(
+        //       'Something went wrong. Please try again',
+        //       style:
+        //           TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+        //     ),
+        //     Container(
+        //       margin: EdgeInsets.only(top: 12),
+        //       child: IconButton(
+        //           onPressed: () async {
+        //             // final isCameraDenied =
+        //             //     await Permission.camera.isDenied;
+        //             // final isRecordDenied =
+        //             //     await Permission.speech.isDenied;
+        //             // print(isCameraDenied);
+        //             // print(isRecordDenied);
+        //             // if (isCameraDenied || isRecordDenied) {
+        //             //   openAppSettings();
+        //             // } else {
+        //             //   context
+        //             //       .read<CameraBloc>()
+        //             //       .add(CameraRequested(0));
+        //             // }
+        //           },
+        //           icon: Icon(
+        //             Icons.rotate_left,
+        //             size: 60,
+        //           )),
+        //     ),
+        //   ],
+        // );
       ),
     );
   }

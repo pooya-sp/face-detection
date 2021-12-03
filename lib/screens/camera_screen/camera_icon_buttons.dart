@@ -1,4 +1,3 @@
-import 'package:camera/camera.dart';
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/countdown_timer_bloc.dart';
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/events/countdown_timer_events.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +10,7 @@ enum FlashState {
 }
 
 class CameraIconButtons extends StatefulWidget {
-  final CameraController _controller;
-  const CameraIconButtons(this._controller);
+  const CameraIconButtons();
   @override
   State<CameraIconButtons> createState() => _CameraIconButtonsState();
 }
@@ -74,22 +72,22 @@ class _CameraIconButtonsState extends State<CameraIconButtons> {
         ),
         IconButton(
             onPressed: () {
-              if (_flashState == FlashState.OFF) {
-                widget._controller.setFlashMode(FlashMode.always);
-                setState(() {
-                  _flashState = FlashState.ON;
-                });
-              } else if (_flashState == FlashState.ON) {
-                widget._controller.setFlashMode(FlashMode.auto);
-                setState(() {
-                  _flashState = FlashState.AUTO;
-                });
-              } else if (_flashState == FlashState.AUTO) {
-                widget._controller.setFlashMode(FlashMode.off);
-                setState(() {
-                  _flashState = FlashState.OFF;
-                });
-              }
+              // if (_flashState == FlashState.OFF) {
+              //   widget._controller.setFlashMode(FlashMode.always);
+              //   setState(() {
+              //     _flashState = FlashState.ON;
+              //   });
+              // } else if (_flashState == FlashState.ON) {
+              //   widget._controller.setFlashMode(FlashMode.auto);
+              //   setState(() {
+              //     _flashState = FlashState.AUTO;
+              //   });
+              // } else if (_flashState == FlashState.AUTO) {
+              //   widget._controller.setFlashMode(FlashMode.off);
+              //   setState(() {
+              //     _flashState = FlashState.OFF;
+              //   });
+              // }
             },
             icon: Icon(
               _flashState == FlashState.ON

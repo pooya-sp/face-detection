@@ -1,6 +1,6 @@
-import 'package:face_detection_app/business_logic/Blocs/gallery_bloc/events/gallery_events.dart';
-import 'package:face_detection_app/business_logic/Blocs/gallery_bloc/gallery_bloc.dart';
-import 'package:face_detection_app/business_logic/Blocs/gallery_bloc/states/gallery_states.dart';
+import 'package:face_detection_app/business_logic/Blocs/gallery_items_bloc/events/gallery_events.dart';
+import 'package:face_detection_app/business_logic/Blocs/gallery_items_bloc/gallery_items_bloc.dart';
+import 'package:face_detection_app/business_logic/Blocs/gallery_items_bloc/states/gallery_states.dart';
 import 'package:face_detection_app/screens/display_gallery_media.dart';
 import 'package:face_detection_app/screens/gallery/real_size_media.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<GalleryBloc>(context, listen: false)
+    BlocProvider.of<GalleryItemsBloc>(context, listen: false)
         .add(GalleryInitializeRequested());
   }
 
@@ -49,7 +49,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
               style: TextStyle(fontWeight: FontWeight.bold),
             )
           ])),
-      BlocBuilder<GalleryBloc, GalleryState>(builder: (context, state) {
+      BlocBuilder<GalleryItemsBloc, GalleryState>(builder: (context, state) {
         if (state is GalleryLoadingComplete) {
           return Stack(children: [
             Container(
@@ -87,7 +87,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                                       result) {
                                     selectedPhotos.add(widget.album[index]);
                                   }
-                                  BlocProvider.of<GalleryBloc>(context,
+                                  BlocProvider.of<GalleryItemsBloc>(context,
                                           listen: false)
                                       .add(ItemSelected());
                                 },
@@ -123,7 +123,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                                                 selectedPhotos
                                                     .add(widget.album[index]);
                                               }
-                                              BlocProvider.of<GalleryBloc>(
+                                              BlocProvider.of<GalleryItemsBloc>(
                                                       context,
                                                       listen: false)
                                                   .add(ItemSelected());
@@ -156,7 +156,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                         if (selectedPhotos.length > 0) {
                           Navigator.of(context).pushReplacementNamed(
                               DisplayGalleryMedia.routeName,
-                              arguments: selectedPhotos);
+                              arguments: [selectedPhotos, widget.albumName]);
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text(widget.album.first.mediumType ==
@@ -168,20 +168,6 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                       },
                       child: Icon(Icons.arrow_right_alt)),
                 )),
-            // Positioned(
-            //     bottom: 3,
-            //     right: 9,
-            //     child: Container(
-            //         width: 5.w,
-            //         decoration: BoxDecoration(
-            //             color: Colors.blue,
-            //             border: Border.all(color: Colors.white),
-            //             shape: BoxShape.circle),
-            //         child: Text(
-            //           '${selectedPhotos.length}',
-            //           textAlign: TextAlign.center,
-            //           style: TextStyle(color: Colors.white),
-            //         )))
           ]);
         } else {
           return Center(

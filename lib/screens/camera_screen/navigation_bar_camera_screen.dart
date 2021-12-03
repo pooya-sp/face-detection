@@ -1,9 +1,10 @@
-import 'package:face_detection_app/business_logic/Blocs/back_button_bloc/back_button_bloc.dart';
-import 'package:face_detection_app/business_logic/Blocs/back_button_bloc/events/picture_event.dart';
+import 'package:face_detection_app/business_logic/Blocs/camera_state_bloc/camera_state_bloc.dart';
+import 'package:face_detection_app/business_logic/Blocs/camera_state_bloc/events/picture_event.dart';
 import 'package:face_detection_app/business_logic/Blocs/gallery_folder_bloc/events/gallery_folder_events.dart';
 import 'package:face_detection_app/business_logic/Blocs/gallery_folder_bloc/gallery_folder_bloc.dart';
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/countdown_timer_bloc.dart';
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/events/countdown_timer_events.dart';
+import 'package:face_detection_app/data/bottom_sheets.dart';
 import 'package:face_detection_app/screens/camera_screen/fab_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,25 +37,25 @@ class _NavigationBarState extends State<NavigationBar> {
             widget._currentIndex = index;
           });
           if (index == 0) {
-            BlocProvider.of<BackButtonBloc>(context, listen: false)
+            BlocProvider.of<CameraStateBloc>(context, listen: false)
                 .add(PictureRequested());
             BlocProvider.of<GalleryFolderBloc>(context, listen: false)
                 .add(GalleryFolderInitializeRequested(MediumType.image));
             BlocProvider.of<CountDownTimerBloc>(context, listen: false)
                 .add(NavBarHasChanged());
           } else if (index == 1) {
-            BlocProvider.of<BackButtonBloc>(context, listen: false)
+            BlocProvider.of<CameraStateBloc>(context, listen: false)
                 .add(VideoRequested());
             BlocProvider.of<GalleryFolderBloc>(context, listen: false)
                 .add(GalleryFolderInitializeRequested(MediumType.video));
             BlocProvider.of<CountDownTimerBloc>(context, listen: false)
                 .add(NavBarHasChanged());
           } else if (index == 2) {
-            BlocProvider.of<BackButtonBloc>(context, listen: false)
+            BlocProvider.of<CameraStateBloc>(context, listen: false)
                 .add(PictureRequested());
             BlocProvider.of<GalleryFolderBloc>(context, listen: false)
                 .add(GalleryFolderInitializeRequested(null));
-            FabWidget.showGalleryFolders(context, true);
+            showGalleryFolders(context, true);
             setState(() {
               widget._currentIndex = 0;
             });

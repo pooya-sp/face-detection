@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:face_detection_app/business_logic/Blocs/back_button_bloc/back_button_bloc.dart';
-import 'package:face_detection_app/business_logic/Blocs/back_button_bloc/events/picture_event.dart';
+import 'package:face_detection_app/business_logic/Blocs/camera_state_bloc/camera_state_bloc.dart';
+import 'package:face_detection_app/business_logic/Blocs/camera_state_bloc/events/picture_event.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +16,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<BackButtonBloc>().add(PictureRequested());
+    context.read<CameraStateBloc>().add(PictureRequested());
   }
 
   @override
