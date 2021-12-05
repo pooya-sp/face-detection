@@ -17,28 +17,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rwa_deep_ar/rwa_deep_ar.dart';
 
-class FabWidget extends StatefulWidget {
+class FabWidget extends StatelessWidget {
   final CameraDeepArController _controller;
   FabWidget(this._controller);
 
-  @override
-  State<FabWidget> createState() => _FabWidgetState();
-}
-
-class _FabWidgetState extends State<FabWidget> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    print('faab widget rebuild');
     return BlocBuilder<CameraStateBloc, PictureState>(builder: (ctx, state) {
       print('back button state is $state');
       if (state is IsRecording) {
         return BlocProvider(
           create: (_) => RecordBloc(),
-          child: RecordWidget(widget._controller),
+          child: RecordWidget(_controller),
         );
       } else if (state is TimerIsRunning) {
         return Container();
@@ -61,7 +51,7 @@ class _FabWidgetState extends State<FabWidget> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12))),
                     onPressed: () {
-                      showFilters(ctx, widget._controller);
+                      showFilters(ctx, _controller);
                     },
                     child: Icon(
                       Icons.brush,

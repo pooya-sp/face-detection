@@ -55,7 +55,7 @@ class _CameraScreenState extends State<CameraScreen> {
       },
     );
     BlocProvider.of<CameraStateBloc>(context).add(PictureRequested());
-    BlocProvider.of<FiltersBloc>(context).add(PreparingFilters(cameraDeepAr));
+    BlocProvider.of<FiltersBloc>(context).add(PreparingCamera(cameraDeepAr));
   }
 
   void handlePermissions() async {
@@ -77,6 +77,7 @@ class _CameraScreenState extends State<CameraScreen> {
     Masks.lion,
   ];
   List<Filters> _supportedFilters = [
+    Filters.none,
     Filters.sepia,
     Filters.bleachbypass,
   ];

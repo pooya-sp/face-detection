@@ -6,7 +6,14 @@ abstract class FiltersState {
 
 class InitializingFilters extends FiltersState {}
 
-class FiltersAreReady extends FiltersState {
+class FiltersPrepared extends FiltersState {
   final CameraDeepAr cameraDeepAr;
-  FiltersAreReady(this.cameraDeepAr);
+  FiltersPrepared(this.cameraDeepAr);
+}
+
+class MasksHasChanged extends FiltersState {
+  int currentMask;
+  int currentFilter;
+  int currentEffect;
+  MasksHasChanged({this.currentEffect, this.currentFilter, this.currentMask});
 }

@@ -16,7 +16,10 @@ void showFilters(
           borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
       backgroundColor: Colors.white,
       context: ctx,
-      builder: (_) => TabBarWidget(cameraDeepArController));
+      builder: (_) {
+        print('bottom sheet rebuild');
+        return TabBarWidget(cameraDeepArController);
+      });
 }
 
 void showGalleryFolders(BuildContext ctx, bool isMultiple) {

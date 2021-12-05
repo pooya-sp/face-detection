@@ -2,14 +2,17 @@ import 'package:face_detection_app/screens/camera_screen/masks_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:rwa_deep_ar/rwa_deep_ar.dart';
 
-class TabBarWidget extends StatefulWidget {
-  final CameraDeepArController cameraDeepArController;
-  TabBarWidget(this.cameraDeepArController);
-  @override
-  _TabBarWidgetState createState() => _TabBarWidgetState();
-}
+class TabBarWidget extends StatelessWidget {
+  CameraDeepArController cameraDeepArController;
+  TabBarWidget._privateConstructor();
 
-class _TabBarWidgetState extends State<TabBarWidget> {
+  static final TabBarWidget _instance = TabBarWidget._privateConstructor();
+
+  factory TabBarWidget(CameraDeepArController controller) {
+    _instance.cameraDeepArController = controller;
+    return _instance;
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -31,9 +34,9 @@ class _TabBarWidgetState extends State<TabBarWidget> {
           ),
         ),
         body: TabBarView(children: [
-          MasksScreen(widget.cameraDeepArController, 0),
-          MasksScreen(widget.cameraDeepArController, 1),
-          MasksScreen(widget.cameraDeepArController, 2),
+          MasksScreen(cameraDeepArController, 0),
+          MasksScreen(cameraDeepArController, 1),
+          MasksScreen(cameraDeepArController, 2),
         ]),
       ),
     );
