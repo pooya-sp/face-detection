@@ -13,6 +13,7 @@ import 'package:face_detection_app/screens/camera_screen/fab_widget.dart';
 import 'package:face_detection_app/screens/camera_screen/navigation_bar_camera_screen.dart';
 import 'package:face_detection_app/screens/camera_screen/timer_widget.dart';
 import 'package:face_detection_app/screens/display_picture_screen.dart';
+import 'package:face_detection_app/screens/display_video_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -36,6 +37,8 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<CameraStateBloc>(context).add(PictureRequested());
+
     cameraDeepAr = CameraDeepAr(
       iosLicenceKey: "",
       supportedEffects: _supportedEffects,
@@ -44,26 +47,19 @@ class _CameraScreenState extends State<CameraScreen> {
       androidLicenceKey:
           '4780670a9159ad6f18754a738871fc774af54bd0a470985f5bb1c0bb3d63512f794e78db339d66ce',
       onCameraReady: (_) {},
-      onVideoRecorded: (_) {},
+      onVideoRecorded: (videoPath) {
+        Navigator.of(context).pushReplacementNamed(DisplayVideoScreen.routName,
+            arguments: videoPath);
+      },
       onImageCaptured: (imagePath) {
         Navigator.of(context)
             .pushNamed(DisplayPictureScreen.routName, arguments: imagePath);
       },
       cameraDeepArCallback: (controller) {
         cameraDeepArController = controller;
-        setState(() {});
       },
     );
-    BlocProvider.of<CameraStateBloc>(context).add(PictureRequested());
     BlocProvider.of<FiltersBloc>(context).add(PreparingCamera(cameraDeepAr));
-  }
-
-  void handlePermissions() async {
-    await Permission.storage.request();
-    await Permission.manageExternalStorage.request();
-    await Permission.location.request();
-    await Permission.accessMediaLocation.request();
-    await Permission.manageExternalStorage.request();
   }
 
   List<Masks> _supportedMasks = [
@@ -89,7 +85,6 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // handlePermissions();
     return BlocBuilder<CameraStateBloc, PictureState>(
       builder: (ctx, st) {
         return WillPopScope(
@@ -147,23 +142,16 @@ class _CameraScreenState extends State<CameraScreen> {
                   if (timerState is CountDownTimerInitial) {
                     if (st is TimerIsRunning) {
                       if (st.cameraState == 0) {
-                        final imagePath =
-                            await cameraDeepArController.snapPhoto();
-                        // FileSaver.saveFileToStorage(image);
-                        // Navigator.of(context).pushNamed(
-                        //     DisplayPictureScreen.routName,
-                        //     arguments: imagePath);
+                        print('snap timer');
+                        cameraDeepArController.snapPhoto();
                         context.read<CameraStateBloc>().add(PictureRequested());
                       } else {
                         context.read<CameraStateBloc>().add(RecordRequested());
                       }
                     }
                     if (st is CameraPushing) {
-                      cameraDeepArController.snapPhoto().then((image) {
-                        // Navigator.of(context).pushNamed(
-                        //     DisplayPictureScreen.routName,
-                        //     arguments: image);
-                      });
+                      print('snap camera');
+                      cameraDeepArController.snapPhoto();
                     }
                     if (st is VideoPushing) {
                       context.read<CameraStateBloc>().add(RecordRequested());

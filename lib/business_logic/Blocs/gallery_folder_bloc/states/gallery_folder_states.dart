@@ -8,6 +8,8 @@ class GalleryFolderInitialized extends GalleryFolderState {}
 
 class FolderIsLoading extends GalleryFolderState {}
 
+class FoldersLoadingFailed extends GalleryFolderState {}
+
 class FoldersLoadingComplete extends GalleryFolderState {
   final Map<String, List<Medium>> media;
   FoldersLoadingComplete(this.media);

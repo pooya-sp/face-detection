@@ -62,7 +62,6 @@ class _FiltersScreenState extends State<MasksScreen> {
           child: CircularProgressIndicator(),
         );
       } else {
-        print('currentItem:$currentItem');
         return Container(
             margin: EdgeInsets.symmetric(vertical: 16),
             width: MediaQuery.of(context).size.width,

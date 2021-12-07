@@ -42,11 +42,9 @@ class _GalleryVideoPlayerState extends State<GalleryVideoPlayer> {
       if (state is GalleryVideoLoadingComplete) {
         videoPlayerController = state.videoPlayerController;
         if (!state.videoPlayerController.hasListeners) {
-          print("+1 listener");
           state.videoPlayerController.addListener(() {
             if (state.videoPlayerController.value.position ==
                 state.videoPlayerController.value.duration) {
-              print("video finished");
               context.read<GalleryVideoBloc>().add(PlayRequested());
             }
           });

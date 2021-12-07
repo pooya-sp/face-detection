@@ -1,5 +1,7 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:face_detection_app/business_logic/Blocs/camera_state_bloc/camera_state_bloc.dart';
-import 'package:face_detection_app/business_logic/Blocs/camera_bloc/camera_bloc.dart';
 import 'package:face_detection_app/business_logic/Blocs/filters_bloc/filters_bloc.dart';
 import 'package:face_detection_app/business_logic/Blocs/gallery_items_bloc/gallery_items_bloc.dart';
 import 'package:face_detection_app/business_logic/Blocs/gallery_folder_bloc/gallery_folder_bloc.dart';
@@ -14,7 +16,9 @@ import 'package:face_detection_app/screens/display_video_screen.dart';
 import 'package:face_detection_app/screens/camera_screen/masks_screen.dart';
 import 'package:face_detection_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sizer/sizer.dart';
 
 void main() async {
@@ -25,9 +29,9 @@ class GalleryApp extends StatelessWidget {
   GalleryApp();
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MultiBlocProvider(
       providers: [
-        // BlocProvider(create: (_) => CameraBloc()),
         BlocProvider(create: (_) => CountDownTimerBloc()),
         BlocProvider(create: (_) => FiltersBloc()),
         BlocProvider(create: (_) => GalleryFolderBloc()),

@@ -24,37 +24,37 @@ class RecordWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (state is PauseVideo)
-            Container(
-              margin: EdgeInsets.only(right: 32),
-              child: FloatingActionButton(
-                heroTag: "btn6",
-                backgroundColor: Colors.transparent,
-                onPressed: () {
-                  context.read<RecordBloc>().add(ResumeRequested());
-                  context.read<TimerBloc>().add(TimerResumed());
-                  // _controller.resumeVideoRecording();
-                },
-                child: Icon(
-                  Icons.fiber_manual_record,
-                  color: Colors.red,
-                ),
-              ),
-            ),
-          if (state is ResumeVideo || state is RecordIsStarting)
-            Container(
-              margin: EdgeInsets.only(right: 32),
-              child: FloatingActionButton(
-                heroTag: "btn5",
-                backgroundColor: Colors.transparent,
-                onPressed: () {
-                  context.read<RecordBloc>().add(PauseRequested());
-                  // _controller.pauseVideoRecording();
-                  context.read<TimerBloc>().add(TimerPaused());
-                },
-                child: Icon(Icons.pause),
-              ),
-            ),
+          // if (state is PauseVideo)
+          //   Container(
+          //     margin: EdgeInsets.only(right: 32),
+          //     child: FloatingActionButton(
+          //       heroTag: "btn6",
+          //       backgroundColor: Colors.transparent,
+          //       onPressed: () {
+          //         context.read<RecordBloc>().add(ResumeRequested());
+          //         context.read<TimerBloc>().add(TimerResumed());
+          //         // _controller.resumeVideoRecording();
+          //       },
+          //       child: Icon(
+          //         Icons.fiber_manual_record,
+          //         color: Colors.red,
+          //       ),
+          //     ),
+          //   ),
+          // if (state is ResumeVideo || state is RecordIsStarting)
+          //   Container(
+          //     margin: EdgeInsets.only(right: 32),
+          //     child: FloatingActionButton(
+          //       heroTag: "btn5",
+          //       backgroundColor: Colors.transparent,
+          //       onPressed: () {
+          //         context.read<RecordBloc>().add(PauseRequested());
+          //         // _controller.pauseVideoRecording();
+          //         context.read<TimerBloc>().add(TimerPaused());
+          //       },
+          //       child: Icon(Icons.pause),
+          //     ),
+          //   ),
           FloatingActionButton(
             heroTag: "btn7",
             backgroundColor: Colors.white,
@@ -64,10 +64,6 @@ class RecordWidget extends StatelessWidget {
                 (video) {
                   context.read<CameraStateBloc>().add(VideoRequested());
                   context.read<TimerBloc>().add(TimerReset());
-                  FileSaver.saveFileToStorage(video);
-                  Navigator.of(context).pushReplacementNamed(
-                      DisplayVideoScreen.routName,
-                      arguments: video.path);
                 },
               );
             },

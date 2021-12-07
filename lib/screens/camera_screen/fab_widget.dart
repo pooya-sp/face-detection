@@ -22,9 +22,7 @@ class FabWidget extends StatelessWidget {
   FabWidget(this._controller);
 
   Widget build(BuildContext context) {
-    print('faab widget rebuild');
     return BlocBuilder<CameraStateBloc, PictureState>(builder: (ctx, state) {
-      print('back button state is $state');
       if (state is IsRecording) {
         return BlocProvider(
           create: (_) => RecordBloc(),

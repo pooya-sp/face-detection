@@ -1,6 +1,6 @@
-import 'package:face_detection_app/business_logic/Blocs/camera_bloc/camera_bloc.dart';
-import 'package:face_detection_app/business_logic/Blocs/camera_bloc/events/camera_events.dart';
-import 'package:face_detection_app/business_logic/Blocs/camera_bloc/states/camera_states.dart';
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:face_detection_app/business_logic/Blocs/gallery_folder_bloc/events/gallery_folder_events.dart';
 import 'package:face_detection_app/business_logic/Blocs/gallery_folder_bloc/gallery_folder_bloc.dart';
 import 'package:face_detection_app/screens/camera_screen/camera_screen.dart';
@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_gallery/photo_gallery.dart';
+import 'package:rwa_deep_ar/rwa_deep_ar.dart';
 
 class Homescreen extends StatefulWidget {
   @override
@@ -19,10 +20,9 @@ class _HomescreenState extends State<Homescreen> {
   @override
   void initState() {
     super.initState();
-    // context.read<CameraBloc>().add(CameraRequested(0));
-    // context
-    //     .read<GalleryFolderBloc>()
-    //     .add(GalleryFolderInitializeRequested(MediumType.image));
+    context
+        .read<GalleryFolderBloc>()
+        .add(GalleryFolderInitializeRequested(MediumType.image));
   }
 
   @override
@@ -40,7 +40,7 @@ class _HomescreenState extends State<Homescreen> {
               ],
             ),
           ),
-          onPressed: () {
+          onPressed: () async {
             Navigator.of(context).pushNamed(
               CameraScreen.routName,
             );
