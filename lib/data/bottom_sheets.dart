@@ -1,8 +1,8 @@
+import 'package:face_detection_app/UI/screens/camera_screen/tab_bar_widget.dart';
+import 'package:face_detection_app/UI/screens/gallery/gallery_folders.dart';
+import 'package:face_detection_app/UI/screens/gallery/gallery_widget.dart';
 import 'package:face_detection_app/business_logic/Blocs/gallery_folder_bloc/events/gallery_folder_events.dart';
 import 'package:face_detection_app/business_logic/Blocs/gallery_folder_bloc/gallery_folder_bloc.dart';
-import 'package:face_detection_app/screens/camera_screen/tab_bar_widget.dart';
-import 'package:face_detection_app/screens/gallery/gallery_folders.dart';
-import 'package:face_detection_app/screens/gallery/gallery_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

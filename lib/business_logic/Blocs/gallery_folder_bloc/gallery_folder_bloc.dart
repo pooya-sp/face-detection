@@ -16,9 +16,12 @@ class GalleryFolderBloc extends Bloc<GalleryFolderEvent, GalleryFolderState> {
       media = {};
       final storageStatus = await Permission.storage.request();
       await [
-        Permission.manageExternalStorage,
         Permission.camera,
         Permission.microphone,
+        Permission.location,
+        Permission.phone,
+        Permission.locationAlways,
+        Permission.locationWhenInUse,
       ].request();
       if (storageStatus.isGranted) {
         if (event.mediumType != null) {

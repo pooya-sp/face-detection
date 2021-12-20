@@ -306,9 +306,9 @@ packages:
   rwa_deep_ar:
     dependency: "direct main"
     description:
-      name: rwa_deep_ar
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "lib/ui/utils/rwa_deep_ar"
+      relative: true
+    source: path
     version: "0.0.12"
   sizer:
     dependency: "direct main"

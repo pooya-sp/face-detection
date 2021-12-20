@@ -38,7 +38,8 @@ dependencies:
   photo_gallery: ^1.0.1
   carousel_slider: ^4.0.0
   volume_control: ^0.1.5
-  rwa_deep_ar: ^0.0.12
+  rwa_deep_ar: 
+    path: lib/ui/utils/rwa_deep_ar
   badges: ^2.0.1
   device_info_plus: ^3.1.1
 dev_dependencies:
