@@ -221,6 +221,7 @@ public class CameraDeepArView implements PlatformView,
                 Map<String, Object> params = (Map<String, Object>) methodCall.arguments;
                 Object mask = params.get("mask");
                 currentMask=Integer.parseInt(String.valueOf(mask));
+                System.out.println(getFilterPath(masks.get(currentMask)));
                 deepAR.switchEffect("mask", getFilterPath(masks.get(currentMask)));
             }
             result.success("Mask Changed");
@@ -276,12 +277,15 @@ public class CameraDeepArView implements PlatformView,
         masks.add("aviators");
         masks.add("bigmouth");
         masks.add("dalmatian");
-        masks.add("flowers");
         masks.add("koala");
-        masks.add("lion");
         masks.add("smallface");
-        masks.add("teddycigar");
+        masks.add("grumpycat");
+        masks.add("twistedface");
+        masks.add("makeup");
         masks.add("kanye");
+        masks.add("flowers");
+        masks.add("lion");
+        masks.add("teddycigar");
         masks.add("tripleface");
         masks.add("sleepingmask");
         masks.add("fatify");
@@ -291,7 +295,6 @@ public class CameraDeepArView implements PlatformView,
         masks.add("slash");
         masks.add("twistedface");
         masks.add("grumpycat");
-
         effects = new ArrayList<>();
         effects.add("none");
         effects.add("fire");

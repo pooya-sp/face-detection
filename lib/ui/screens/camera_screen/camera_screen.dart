@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:face_detection_app/UI/screens/camera_screen/camera_icon_buttons.dart';
 import 'package:face_detection_app/UI/screens/camera_screen/fab_widget.dart';
 import 'package:face_detection_app/UI/screens/camera_screen/navigation_bar_camera_screen.dart';
@@ -33,15 +35,28 @@ class _CameraScreenState extends State<CameraScreen> {
   CameraDeepArController cameraDeepArController;
   CameraDeepAr cameraDeepAr;
 
+  List<Filters> _supportedFilters = [
+    Filters.none,
+    Filters.sepia,
+    Filters.bleachbypass,
+  ];
+  List<Effects> _supportedEffects = [
+    Effects.none,
+    Effects.fire,
+    Effects.heart,
+  ];
+
   @override
   void initState() {
     super.initState();
     BlocProvider.of<CameraStateBloc>(context).add(PictureRequested());
+  }
+
+  Widget get deepCamera {
     cameraDeepAr = CameraDeepAr(
       iosLicenceKey: "",
       supportedEffects: _supportedEffects,
       supportedFilters: _supportedFilters,
-      supportedMasks: _supportedMasks,
       androidLicenceKey:
           '4780670a9159ad6f18754a738871fc774af54bd0a470985f5bb1c0bb3d63512f794e78db339d66ce',
       onCameraReady: (_) {},
@@ -57,29 +72,16 @@ class _CameraScreenState extends State<CameraScreen> {
         cameraDeepArController = controller;
       },
     );
+    print(cameraDeepAr != null);
+    print(cameraDeepArController != null);
     BlocProvider.of<FiltersBloc>(context).add(PreparingCamera(cameraDeepAr));
+    return cameraDeepAr;
   }
 
-  List<Masks> _supportedMasks = [
-    Masks.none,
-    Masks.aviators,
-    Masks.bigmouth,
-    Masks.dalmatian,
-    Masks.look2,
-    Masks.flowers,
-    Masks.grumpycat,
-    Masks.lion,
-  ];
-  List<Filters> _supportedFilters = [
-    Filters.none,
-    Filters.sepia,
-    Filters.bleachbypass,
-  ];
-  List<Effects> _supportedEffects = [
-    Effects.none,
-    Effects.fire,
-    Effects.heart,
-  ];
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +127,7 @@ class _CameraScreenState extends State<CameraScreen> {
                     //   state.controller.setZoomLevel(_scaleFactor);
                     // }
                   },
-                  child: cameraDeepAr,
+                  child: deepCamera,
                 )),
                 if (st is IsRecording)
                   Positioned(

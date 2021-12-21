@@ -20,22 +20,24 @@ enum Masks {
   aviators,
   bigmouth,
   dalmatian,
+  koala,
+  smallface,
+  grumpycat,
+  twistedFace,
+  makeup,
   bcgSeg,
   look2,
   fatify,
   flowers,
-  grumpycat,
-  koala,
   lion,
   mudMask,
   obama,
   pug,
   slash,
   sleepingmask,
-  smallface,
   teddycigar,
   tripleface,
-  twistedFace,
+  kanye,
 }
 
 enum Effects {
@@ -89,10 +91,11 @@ class CameraDeepAr extends StatefulWidget {
         Masks.aviators,
         Masks.bigmouth,
         Masks.dalmatian,
-        Masks.look2,
-        Masks.flowers,
+        Masks.koala,
+        Masks.smallface,
         Masks.grumpycat,
-        Masks.lion,
+        Masks.twistedFace,
+        Masks.makeup,
       ],
       this.supportedEffects = const [
         Effects.none,
@@ -284,12 +287,14 @@ class CameraDeepArController {
   }
 
   Future changeMask(int p) async {
+    print(p);
     int sendNative = p;
     if (_cameraDeepArState.supportedEffects.isNotEmpty) {
       Masks e = _cameraDeepArState.supportedMasks[p];
       sendNative = Masks.values.indexOf(e);
     }
     if (p > Masks.values.length - 1) p = 0;
+    print(sendNative);
     return channel.invokeMethod('changeMask', <String, dynamic>{
       'mask': sendNative,
     });
