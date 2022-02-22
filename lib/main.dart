@@ -19,8 +19,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sizer/sizer.dart';
+import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart'
+    show ArCoreController;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  print('ARCORE IS AVAILABLE?');
+  print(await ArCoreController.checkArCoreAvailability());
+  print('\nAR SERVICES INSTALLED?');
+  print(await ArCoreController.checkIsArCoreInstalled());
   runApp(GalleryApp());
 }
 

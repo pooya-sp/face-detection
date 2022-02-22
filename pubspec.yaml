@@ -34,13 +34,14 @@ dependencies:
   path_provider: ^2.0.3
   path: ^1.8.0
   sizer: ^2.0.15
-  equatable: ^2.0.3
   photo_gallery: ^1.0.1
   carousel_slider: ^4.0.0
   volume_control: ^0.1.5
-  rwa_deep_ar: 
-    path: lib/ui/utils/rwa_deep_ar
   badges: ^2.0.1
+  arcore_flutter_plugin:
+    git:
+      url: git://github.com/giandifra/arcore_flutter_plugin.git
+      ref: 56f7128
   device_info_plus: ^3.1.1
 dev_dependencies:
    

@@ -1,9 +1,10 @@
 buildscript {
-    ext.kotlin_version = '1.5.31'
+    ext.kotlin_version = '1.6.10'
     repositories {
         google()
         mavenCentral()
-    maven { url 'https://repo1.maven.org/maven2' }
+    // maven { url 'https://repo1.maven.org/maven2' }
+        jcenter()
     }
 
     dependencies {
@@ -16,7 +17,8 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-            maven { url 'https://repo1.maven.org/maven2' }
+        jcenter()
+            // maven { url 'https://repo1.maven.org/maven2' }
     }
 }
 
@@ -29,4 +31,3 @@ subprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
- 

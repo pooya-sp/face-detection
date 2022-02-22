@@ -7,10 +7,9 @@ import 'package:face_detection_app/business_logic/Blocs/timer_bloc/events/timer_
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/timer_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rwa_deep_ar/rwa_deep_ar.dart';
 
 class RecordWidget extends StatelessWidget {
-  final CameraDeepArController _controller;
+  final dynamic _controller;
 
   RecordWidget(this._controller);
 

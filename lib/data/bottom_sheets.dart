@@ -7,10 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photo_gallery/photo_gallery.dart';
-import 'package:rwa_deep_ar/rwa_deep_ar.dart';
 
-void showFilters(
-    BuildContext ctx, CameraDeepArController cameraDeepArController) {
+void showFilters(BuildContext ctx, dynamic cameraDeepArController) {
   showModalBottomSheet(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
@@ -18,7 +16,7 @@ void showFilters(
       context: ctx,
       builder: (_) {
         print('bottom sheet rebuild');
-        return TabBarWidget(cameraDeepArController);
+        return TabBarWidget();
       });
 }
 

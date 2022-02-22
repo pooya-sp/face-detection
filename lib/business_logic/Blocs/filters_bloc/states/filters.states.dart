@@ -1,5 +1,3 @@
-import 'package:rwa_deep_ar/rwa_deep_ar.dart';
-
 abstract class FiltersState {
   const FiltersState();
 }
@@ -7,7 +5,7 @@ abstract class FiltersState {
 class InitializingFilters extends FiltersState {}
 
 class FiltersPrepared extends FiltersState {
-  final CameraDeepAr cameraDeepAr;
+  final dynamic cameraDeepAr;
   FiltersPrepared(this.cameraDeepAr);
 }
 

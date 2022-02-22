@@ -5,14 +5,12 @@ import 'package:face_detection_app/business_logic/Blocs/camera_state_bloc/states
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/countdown_timer_bloc.dart';
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/events/countdown_timer_events.dart';
 import 'package:face_detection_app/data/bottom_sheets.dart';
-import 'package:photo_gallery/photo_gallery.dart';
 import 'package:face_detection_app/business_logic/Blocs/record_bloc/record_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rwa_deep_ar/rwa_deep_ar.dart';
 
 class FabWidget extends StatelessWidget {
-  final CameraDeepArController _controller;
+  final dynamic _controller;
   FabWidget(this._controller);
 
   Widget build(BuildContext context) {

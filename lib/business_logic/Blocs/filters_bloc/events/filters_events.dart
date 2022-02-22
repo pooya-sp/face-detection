@@ -1,11 +1,9 @@
-import 'package:rwa_deep_ar/rwa_deep_ar.dart';
-
 abstract class FiltersEvent {
   const FiltersEvent();
 }
 
 class PreparingCamera extends FiltersEvent {
-  final CameraDeepAr cameraDeepAr;
+  final dynamic cameraDeepAr;
   PreparingCamera(this.cameraDeepAr);
 }
 

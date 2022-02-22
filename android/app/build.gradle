@@ -32,7 +32,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
    }
 
    android {
-    compileSdkVersion 31
+    compileSdkVersion 30
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -60,6 +60,13 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
            signingConfig signingConfigs.release
        }
    }
+   compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+      aaptOptions {
+        noCompress 'filamat', 'ktx'
+    }
 }
 
 flutter {
@@ -68,4 +75,6 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.ar:core:1.15.0'
+
 }

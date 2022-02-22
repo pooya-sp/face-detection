@@ -1,25 +1,20 @@
-import 'dart:async';
-
+import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:face_detection_app/UI/screens/camera_screen/camera_icon_buttons.dart';
 import 'package:face_detection_app/UI/screens/camera_screen/fab_widget.dart';
 import 'package:face_detection_app/UI/screens/camera_screen/navigation_bar_camera_screen.dart';
 import 'package:face_detection_app/UI/screens/camera_screen/timer_widget.dart';
-import 'package:face_detection_app/UI/screens/display_picture_screen.dart';
-import 'package:face_detection_app/UI/screens/display_video_screen.dart';
 import 'package:face_detection_app/business_logic/Blocs/camera_state_bloc/camera_state_bloc.dart';
 import 'package:face_detection_app/business_logic/Blocs/camera_state_bloc/events/picture_event.dart';
 import 'package:face_detection_app/business_logic/Blocs/camera_state_bloc/states/picture_state.dart';
-import 'package:face_detection_app/business_logic/Blocs/filters_bloc/events/filters_events.dart';
-import 'package:face_detection_app/business_logic/Blocs/filters_bloc/filters_bloc.dart';
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/countdown_timer_bloc.dart';
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/events/countdown_timer_events.dart';
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/events/timer_events.dart';
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/states/countdown_timer_states.dart';
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/timer_bloc.dart';
+import 'package:face_detection_app/ui/screens/camera_screen/masks_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
-import 'package:rwa_deep_ar/rwa_deep_ar.dart';
 
 class CameraScreen extends StatefulWidget {
   static const routName = '/camera';
@@ -30,52 +25,15 @@ class CameraScreen extends StatefulWidget {
 
 class _CameraScreenState extends State<CameraScreen> {
   var _isFrontCamera = true;
+  ArCoreController arCoreController;
   double zoom = 1.0;
   double _scaleFactor = 1.0;
-  CameraDeepArController cameraDeepArController;
-  CameraDeepAr cameraDeepAr;
-
-  List<Filters> _supportedFilters = [
-    Filters.none,
-    Filters.sepia,
-    Filters.bleachbypass,
-  ];
-  List<Effects> _supportedEffects = [
-    Effects.none,
-    Effects.fire,
-    Effects.heart,
-  ];
 
   @override
   void initState() {
     super.initState();
+    // arCoreController = ArCoreController();
     BlocProvider.of<CameraStateBloc>(context).add(PictureRequested());
-  }
-
-  Widget get deepCamera {
-    cameraDeepAr = CameraDeepAr(
-      iosLicenceKey: "",
-      supportedEffects: _supportedEffects,
-      supportedFilters: _supportedFilters,
-      androidLicenceKey:
-          '4780670a9159ad6f18754a738871fc774af54bd0a470985f5bb1c0bb3d63512f794e78db339d66ce',
-      onCameraReady: (_) {},
-      onVideoRecorded: (videoPath) {
-        Navigator.of(context)
-            .pushNamed(DisplayVideoScreen.routName, arguments: videoPath);
-      },
-      onImageCaptured: (imagePath) {
-        Navigator.of(context)
-            .pushNamed(DisplayPictureScreen.routName, arguments: imagePath);
-      },
-      cameraDeepArCallback: (controller) {
-        cameraDeepArController = controller;
-      },
-    );
-    print(cameraDeepAr != null);
-    print(cameraDeepArController != null);
-    BlocProvider.of<FiltersBloc>(context).add(PreparingCamera(cameraDeepAr));
-    return cameraDeepAr;
   }
 
   @override
@@ -90,7 +48,7 @@ class _CameraScreenState extends State<CameraScreen> {
         return WillPopScope(
           onWillPop: () async {
             if (st is IsRecording) {
-              await cameraDeepArController.stopVideoRecording();
+              // await cameraDeepArController.stopVideoRecording();
               // FileSaver.saveFileToStorage(video);
               ctx.read<TimerBloc>().add(TimerReset());
               ctx.read<CameraStateBloc>().add(VideoRequested());
@@ -127,7 +85,7 @@ class _CameraScreenState extends State<CameraScreen> {
                     //   state.controller.setZoomLevel(_scaleFactor);
                     // }
                   },
-                  child: deepCamera,
+                  child: MasksScreen(),
                 )),
                 if (st is IsRecording)
                   Positioned(
@@ -143,7 +101,9 @@ class _CameraScreenState extends State<CameraScreen> {
                     if (st is TimerIsRunning) {
                       if (st.cameraState == 0) {
                         print('snap timer');
-                        cameraDeepArController.snapPhoto();
+                        // cameraDeepArController.snapPhoto();
+                        // arCoreController.takeScreenshot();
+
                         // context.read<CameraStateBloc>().add(PictureRequested());
                       } else {
                         context.read<CameraStateBloc>().add(RecordRequested());
@@ -151,7 +111,8 @@ class _CameraScreenState extends State<CameraScreen> {
                     }
                     if (st is CameraPushing) {
                       print('snap camera');
-                      cameraDeepArController.snapPhoto();
+                      // cameraDeepArController.snapPhoto();
+                      // arCoreController.takeScreenshot();
                     }
                     if (st is VideoPushing) {
                       context.read<CameraStateBloc>().add(RecordRequested());
@@ -176,9 +137,8 @@ class _CameraScreenState extends State<CameraScreen> {
             bottomNavigationBar: !(st is TimerIsRunning || st is IsRecording)
                 ? NavigationBar()
                 : null,
-            floatingActionButton: !(st is TimerIsRunning)
-                ? FabWidget(cameraDeepArController)
-                : null,
+            floatingActionButton:
+                !(st is TimerIsRunning) ? FabWidget(dynamic) : null,
           ),
         );
       },
@@ -195,12 +155,12 @@ class _CameraScreenState extends State<CameraScreen> {
               onPressed: () async {
                 if (_isFrontCamera) {
                   _isFrontCamera = false;
-                  cameraDeepArController.switchCameraDirection(
-                      direction: CameraDirection.back);
+                  // cameraDeepArController.switchCameraDirection(
+                  //     direction: CameraDirection.back);
                 } else {
                   _isFrontCamera = true;
-                  cameraDeepArController.switchCameraDirection(
-                      direction: CameraDirection.front);
+                  // cameraDeepArController.switchCameraDirection(
+                  //     direction: CameraDirection.front);
                 }
               },
               icon: Icon(
