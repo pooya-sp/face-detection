@@ -5,7 +5,7 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: master
+      ref: HEAD
       resolved-ref: "69ec86d351695ec2dcf3e1200d9713fffb0d844b"
       url: "git://github.com/giandifra/arcore_flutter_plugin.git"
     source: git
