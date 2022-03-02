@@ -102,7 +102,7 @@ class _CameraScreenState extends State<CameraScreen> {
                       if (st.cameraState == 0) {
                         print('snap timer');
                         // cameraDeepArController.snapPhoto();
-                        // arCoreController.takeScreenshot();
+                        arCoreController.takeScreenshot();
 
                         // context.read<CameraStateBloc>().add(PictureRequested());
                       } else {
@@ -112,7 +112,7 @@ class _CameraScreenState extends State<CameraScreen> {
                     if (st is CameraPushing) {
                       print('snap camera');
                       // cameraDeepArController.snapPhoto();
-                      // arCoreController.takeScreenshot();
+                      arCoreController.takeScreenshot();
                     }
                     if (st is VideoPushing) {
                       context.read<CameraStateBloc>().add(RecordRequested());

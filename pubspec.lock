@@ -5,11 +5,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "56f7128"
-      resolved-ref: "56f712810370e79c61030a00216dcf65bedd36bd"
+      ref: master
+      resolved-ref: "69ec86d351695ec2dcf3e1200d9713fffb0d844b"
       url: "git://github.com/giandifra/arcore_flutter_plugin.git"
     source: git
-    version: "0.1.0-null-safety.3"
+    version: "0.0.11"
   async:
     dependency: transitive
     description:
@@ -142,7 +142,7 @@ packages:
       name: equatable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.3"
+    version: "1.2.6"
   fake_async:
     dependency: transitive
     description:

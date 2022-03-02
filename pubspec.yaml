@@ -41,7 +41,6 @@ dependencies:
   arcore_flutter_plugin:
     git:
       url: git://github.com/giandifra/arcore_flutter_plugin.git
-      ref: 56f7128
   device_info_plus: ^3.1.1
 dev_dependencies:
    

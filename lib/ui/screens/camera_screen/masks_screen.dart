@@ -35,7 +35,7 @@ class _FiltersScreenState extends State<MasksScreen> {
 
     arCoreFaceController.loadMesh(
         textureBytes: textureBytes.buffer.asUint8List(),
-        skin3DModelFilename: '13549_Volto_Mask_L2.gltf');
+        skin3DModelFilename: 'fox_face.sfb');
   }
 
   @override
