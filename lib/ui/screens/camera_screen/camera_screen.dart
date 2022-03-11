@@ -38,7 +38,6 @@ class _CameraScreenState extends State<CameraScreen> {
 
   void _onArCoreViewCreated(ArCoreController controller) {
     arCoreController = controller;
-    print(arCoreController == null);
     setState(() {
       visible = false;
     });
@@ -113,27 +112,22 @@ class _CameraScreenState extends State<CameraScreen> {
                   if (timerState is CountDownTimerInitial) {
                     if (st is TimerIsRunning) {
                       if (st.cameraState == 0) {
-                        // cameraDeepArController.snapPhoto();
-                        // arCoreController.takeScreenshot().then((value) {
-                        //   Navigator.of(context).pushNamed(
-                        //       DisplayPictureScreen.routName,
-                        //       arguments: "imagePath");
-                        // });
-                        arCoreController.togglePlaneRenderer();
+                        arCoreController.takeScreenshot().then((value) {
+                          Navigator.of(context).pushNamed(
+                              DisplayPictureScreen.routName,
+                              arguments: "imagePath");
+                        });
                         // context.read<CameraStateBloc>().add(PictureRequested());
                       } else {
                         context.read<CameraStateBloc>().add(RecordRequested());
                       }
                     }
                     if (st is CameraPushing) {
-                      // cameraDeepArController.snapPhoto();
-                      // arCoreController.takeScreenshot().then((value) {
-                      //   Navigator.of(context).pushNamed(
-                      //       DisplayPictureScreen.routName,
-                      //       arguments: "imagePath");
-                      // })
-                      //
-                      arCoreController.togglePlaneRenderer();
+                      arCoreController.takeScreenshot().then((value) {
+                        Navigator.of(context).pushNamed(
+                            DisplayPictureScreen.routName,
+                            arguments: "imagePath");
+                      });
                     }
                     if (st is VideoPushing) {
                       context.read<CameraStateBloc>().add(RecordRequested());
