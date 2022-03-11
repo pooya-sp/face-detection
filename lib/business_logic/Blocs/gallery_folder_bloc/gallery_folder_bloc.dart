@@ -22,6 +22,7 @@ class GalleryFolderBloc extends Bloc<GalleryFolderEvent, GalleryFolderState> {
         Permission.phone,
         Permission.locationAlways,
         Permission.locationWhenInUse,
+        Permission.manageExternalStorage,
       ].request();
       if (storageStatus.isGranted) {
         if (event.mediumType != null) {

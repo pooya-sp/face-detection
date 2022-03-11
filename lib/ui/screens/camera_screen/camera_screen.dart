@@ -12,6 +12,7 @@ import 'package:face_detection_app/business_logic/Blocs/timer_bloc/events/timer_
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/states/countdown_timer_states.dart';
 import 'package:face_detection_app/business_logic/Blocs/timer_bloc/timer_bloc.dart';
 import 'package:face_detection_app/ui/screens/camera_screen/masks_screen.dart';
+import 'package:face_detection_app/ui/screens/display_picture_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -28,17 +29,19 @@ class _CameraScreenState extends State<CameraScreen> {
   ArCoreController arCoreController;
   double zoom = 1.0;
   double _scaleFactor = 1.0;
-
+  bool visible = true;
   @override
   void initState() {
     super.initState();
-    // arCoreController = ArCoreController();
     BlocProvider.of<CameraStateBloc>(context).add(PictureRequested());
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void _onArCoreViewCreated(ArCoreController controller) {
+    arCoreController = controller;
+    print(arCoreController == null);
+    setState(() {
+      visible = false;
+    });
   }
 
   @override
@@ -85,7 +88,17 @@ class _CameraScreenState extends State<CameraScreen> {
                     //   state.controller.setZoomLevel(_scaleFactor);
                     // }
                   },
-                  child: MasksScreen(),
+                  child: Stack(
+                    children: [
+                      MasksScreen(),
+                      Visibility(
+                        child: ArCoreView(
+                          onArCoreViewCreated: _onArCoreViewCreated,
+                        ),
+                        visible: visible,
+                      ),
+                    ],
+                  ),
                 )),
                 if (st is IsRecording)
                   Positioned(
@@ -100,19 +113,27 @@ class _CameraScreenState extends State<CameraScreen> {
                   if (timerState is CountDownTimerInitial) {
                     if (st is TimerIsRunning) {
                       if (st.cameraState == 0) {
-                        print('snap timer');
                         // cameraDeepArController.snapPhoto();
-                        arCoreController.takeScreenshot();
-
+                        // arCoreController.takeScreenshot().then((value) {
+                        //   Navigator.of(context).pushNamed(
+                        //       DisplayPictureScreen.routName,
+                        //       arguments: "imagePath");
+                        // });
+                        arCoreController.togglePlaneRenderer();
                         // context.read<CameraStateBloc>().add(PictureRequested());
                       } else {
                         context.read<CameraStateBloc>().add(RecordRequested());
                       }
                     }
                     if (st is CameraPushing) {
-                      print('snap camera');
                       // cameraDeepArController.snapPhoto();
-                      arCoreController.takeScreenshot();
+                      // arCoreController.takeScreenshot().then((value) {
+                      //   Navigator.of(context).pushNamed(
+                      //       DisplayPictureScreen.routName,
+                      //       arguments: "imagePath");
+                      // })
+                      //
+                      arCoreController.togglePlaneRenderer();
                     }
                     if (st is VideoPushing) {
                       context.read<CameraStateBloc>().add(RecordRequested());

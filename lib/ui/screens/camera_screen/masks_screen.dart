@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/services.dart';
+import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 
 class MasksScreen extends StatefulWidget {
   @override
@@ -13,9 +13,6 @@ class _FiltersScreenState extends State<MasksScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Augmented Faces'),
-        ),
         body: ArCoreFaceView(
           onArCoreViewCreated: _onArCoreViewCreated,
           enableAugmentedFaces: true,

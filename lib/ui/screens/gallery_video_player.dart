@@ -29,7 +29,6 @@ class _GalleryVideoPlayerState extends State<GalleryVideoPlayer> {
   void dispose() {
     if (videoPlayerController != null) {
       videoPlayerController.dispose();
-      print("wtffffffffffffffffffffffffffffffff");
     }
     super.dispose();
   }

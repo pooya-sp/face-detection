@@ -28,8 +28,9 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: Image.file(
-          File(filePath),
+        child: Image.network(
+          // File(filePath),
+          "https://media.cntraveller.com/photos/611bf0b8f6bd8f17556db5e4/16:9/w_2992,h_1683,c_limit/gettyimages-1146431497.jpg",
           fit: BoxFit.fill,
         ),
       ),
